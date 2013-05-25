@@ -129,8 +129,10 @@ window.onload = function(){
         bear.frame = 5;
         game.rootScene.addChild(bear);
 		
-		thing = new EnemyL1();
-		game.rootScene.addChild(thing);
+		thing1 = new EnemyL1();
+		game.rootScene.addChild(thing1);
+		thing2 = new EnemyL2();
+		game.rootScene.addChild(thing2);
 		
 		
         bear.addEventListener("enterframe", function(){
