@@ -20,6 +20,17 @@ Enemy = Class.create(Sprite, {
 		{
 			game.rootScene.removeChild(this);
 		}
+		if(this.x > 280)
+		{
+			this.x == 10;
+		}
+		if(rand(100) > 50) 
+		{
+		this.x +=6;
+		} else
+		{
+		this.x -=6;
+		}
 	
 	}
 });
