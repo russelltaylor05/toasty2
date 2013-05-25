@@ -1,42 +1,106 @@
 enchant();
+increment = 1;
+EnemyL1 = Class.create(Sprite, {
 
-
-Enemy = Class.create(Sprite, {
+	
 
     initialize: function() {
         Sprite.call(this, 32, 32);
         this.image = game.assets["chara1.png"];
-		this.x = rand(320);
+		this.x = rand(150) + 30;
+		this.y = 0;
+		this.frame = 12;
+
+    },
+
+    onenterframe: function() {
+		//document.write(increment);
+	//	document.write(" ");
+		if(rand(100) > 80 )
+		{
+			this.y +=1;
+		} else{
+		
+			this.x+=increment;
+			if(this.y == 280)
+			{
+				game.rootScene.removeChild(this);
+			}
+			if(this.x > 280)
+			{
+				increment= increment * (-1);
+				this.x = 278;
+			}
+			if(this.x < 20)
+			{
+				increment= increment * (-1);
+				this.x = 22;
+			}
+		}
+	}
+	
+});
+EnemyL2 = Class.create(Sprite, {
+
+    initialize: function() {
+        Sprite.call(this, 32, 32);
+        this.image = game.assets["chara1.png"];
+		this.x = rand(150) + 30;
 		this.y = 0;
 		this.frame = 4;
 
     },
 
     onenterframe: function() {
-
-		this.y +=1;
-		
-		if(this.y == 280)
+		//decides if the enemy stays in place or move foward.
+		if(rand(100) > 80 )
 		{
-			game.rootScene.removeChild(this);
+		} else{
+			this.y +=1;
+			//if it reaches the bottom of the screen remove it
+			if(this.y == 280)
+			{
+				game.rootScene.removeChild(this);
+			}
+			//if it reaches the right edge, move it to the center
+			if(this.x > 280)
+			{
+				this.x == 160;
+			}
+			//if it reaches the left edge, move it to the center.
+			if(this.x <20)
+			{
+				this.x = 160
+			}
+			//at this point its progressed a pixel
+			//then to create random left and right movement
+			if(rand(100) > 50) 
+			{
+				//moves right, 
+				this.x +=10;
+			} else
+			{
+				//moves left
+				this.x -=10;
+				
+			}
 		}
-		if(this.x > 280)
-		{
-			this.x == 10;
-		}
-		if(rand(100) > 50) 
-		{
-		this.x +=6;
-		} else
-		{
-		this.x -=6;
-		}
-	
 	}
+	
 });
 
+function addEnemyL2()
+{
+	thing = new EnemyL2();
+	game.rootScene.addChild(thing);
+}
 
 
+function addEnemeyL1()
+{
+	thing = new EnemyL1();
+	game.rootScene.addChild(thing);
+}
 
 
 
@@ -44,7 +108,7 @@ window.onload = function(){
 
 
     game = new Game(320, 320);
-    game.fps = 15;
+    game.fps = 25;
     game.preload('chara1.png','bg.png','bg2.jpg');
 
     game.onload = function(){
@@ -53,8 +117,10 @@ window.onload = function(){
         bg.image = game.assets['bg2.jpg'];
         game.rootScene.addChild(bg);
 		//adding an enemy
-		enemy = new Enemy();
-		game.rootScene.addChild(enemy);
+		//enemy = new Enemy();
+		//game.rootScene.addChild(enemy);
+		//enemy1 = new Enemy();
+		//game.rootScene.addChild(enemy1);
 		
         bear = new Sprite(32, 32);
         bear.image = game.assets["chara1.png"];
@@ -62,6 +128,9 @@ window.onload = function(){
         bear.y = 200;
         bear.frame = 5;
         game.rootScene.addChild(bear);
+		
+		thing = new EnemyL1();
+		game.rootScene.addChild(thing);
 		
 		
         bear.addEventListener("enterframe", function(){
@@ -74,7 +143,15 @@ window.onload = function(){
 
             this.frame = this.age % 2 + 6;
         });
-	
+		game.addEventListener('enterframe',function(e){
+			/*if(rand(100) >99)
+			{
+				addEnemyL2();
+			}
+			else if(rand(100) == 1)
+				addEnemyL1();
+			}*/
+		});
 
         bear.addEventListener("touchstart", function(){
             game.rootScene.removeChild(bear);
