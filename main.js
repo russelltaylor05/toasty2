@@ -26,9 +26,16 @@ EnemyL1 = Class.create(Sprite, {
 			this.y = 0;
 			this.frame = 1;
     },
-    onenterframe: function() {
-			if(rand(100) > 80 ) {
+    onenterframe: function() 
+		{
+	    if(this.intersect(toasty)) {        
+
+	        game.rootScene.removeChild(this);
+
+			} else if(rand(100) > 80 ) {
+				
 				this.y +=1;
+
 			}  else {
 				this.x+=increment;
 				if(this.y > 280) {
@@ -47,18 +54,26 @@ EnemyL1 = Class.create(Sprite, {
 });
 
 EnemyL2 = Class.create(Sprite, {
-   initialize: function() {
-      Sprite.call(this, 26, 22);
-      this.image = game.assets["shooter.gif"];
+
+	/* Initialize */
+	initialize: function() 
+	{
+		Sprite.call(this, 26, 22);
+		this.image = game.assets["shooter.gif"];
 		this.x = rand(150) + 30;
 		this.y = 0;
 		this.frame = 2;
-    },
-    onenterframe: function() {
-		//decides if the enemy stays in place or move foward.
-		if(rand(100) > 80 ) {
-		} 
-      else {
+	},
+	
+	/* Enter Frames */
+	onenterframe: function() 
+	{
+    if(this.intersect(toasty)) {        
+        game.rootScene.removeChild(this);
+
+		} else if(rand(100) > 80 ) {
+		
+		}  else {
 			this.y +=1;
 			//if it reaches the bottom of the screen remove it
 			if(this.y > 280) {
@@ -178,7 +193,7 @@ window.onload = function() {
 			this.frame = this.age % 2 + 6;
 		});
 
-		game.addEventListener('enterframe',function(e) {
+		//game.addEventListener('enterframe',function(e) {
 			/*if(rand(100) >99)
 			{
 				addEnemyL2();
@@ -186,7 +201,7 @@ window.onload = function() {
 			else if(rand(100) == 1)
 				addEnemyL1();
 			}*/
-		});
+			//	});
 
 		game.rootScene.addEventListener('touchstart', function(e){
 			toasty.x = e.localX
@@ -245,11 +260,11 @@ window.onload = function() {
       game.score = 0;
 
       game.rootScene.addEventListener('enterframe',function(){
-         if(game.frame % 6 == 0) {
+         if(game.frame % 10 == 0) {
             addBullet();
          }
          if(game.rootScene.age > game.fps * 20) {
-             game.end(game.score, game.score + " END");
+             //game.end(game.score, game.score + " END");
          }
      });
       
