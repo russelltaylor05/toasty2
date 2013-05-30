@@ -110,6 +110,32 @@ EnemyL2 = Class.create(Sprite, {
 	}
 	
 });
+EnemyL3 = Class.create(Sprite, {
+
+    initialize: function() {
+        Sprite.call(this, 32, 32);
+        this.image = game.assets["chara1.png"];
+		this.x = rand(150) + 30;
+		this.y = 0;
+		this.frame = 4;
+
+    },
+
+    onenterframe: function() {
+		//document.write(increment);
+	//	document.write(" ");
+		if(game.frame%25 == 0)
+		{
+			this.y +=30;
+		}
+	}
+	
+});
+function addEnemyL3()
+{
+	thing = new EnemyL3();
+	game.rootScene.addChild(thing);
+}
 
 function addEnemyL2()
 {
@@ -157,12 +183,14 @@ window.onload = function(){
         bear.frame = 5;
         game.rootScene.addChild(bear);
 		
-		thing1 = new EnemyL1();
+		thing1 = new EnemyL0();
 		game.rootScene.addChild(thing1);
-		thing2 = new EnemyL2();
+		thing2 = new EnemyL1();
 		game.rootScene.addChild(thing2);
-		thing3 = new EnemyL0();
+		thing3 = new EnemyL2();
 		game.rootScene.addChild(thing3);
+		thing4 = new EnemyL3();
+		game.rootScene.addChild(thing4);
 		
 		
         bear.addEventListener("enterframe", function(){
