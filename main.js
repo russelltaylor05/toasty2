@@ -1,5 +1,27 @@
 enchant();
 increment = 1;
+EnemyL0 = Class.create(Sprite, {
+
+	
+
+    initialize: function() {
+        Sprite.call(this, 32, 32);
+        this.image = game.assets["chara1.png"];
+		this.x = rand(150) + 30;
+		this.y = 0;
+		this.frame = 11;
+
+    },
+
+    onenterframe: function() {
+		//document.write(increment);
+	//	document.write(" ");
+		
+			this.y +=1;
+		
+	}
+	
+});
 EnemyL1 = Class.create(Sprite, {
 
 	
@@ -102,6 +124,12 @@ function addEnemeyL1()
 	game.rootScene.addChild(thing);
 }
 
+function addEnemyL0()
+{
+	thing = new EnemyL0();
+	game.rootScene.addChild(thing);
+}
+
 
 
 window.onload = function(){
@@ -133,6 +161,8 @@ window.onload = function(){
 		game.rootScene.addChild(thing1);
 		thing2 = new EnemyL2();
 		game.rootScene.addChild(thing2);
+		thing3 = new EnemyL0();
+		game.rootScene.addChild(thing3);
 		
 		
         bear.addEventListener("enterframe", function(){
