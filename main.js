@@ -3,52 +3,47 @@ enchant();
 increment = 1;
 
 EnemyL0 = Class.create(Sprite, {
-   initialize: function() {
-      Sprite.call(this, 26, 22);
-      this.image = game.assets["shooter.gif"];
+	initialize: function() {
+		Sprite.call(this, 26, 22);
+		this.image = game.assets["shooter.gif"];
 		this.x = rand(150) + 30;
 		this.y = 0;
 		this.frame = 0;
-   },
-   onenterframe: function() {
-	//document.write(increment);
-   //	document.write(" ");
-      if(this.y > 280) {
-         game.rootScene.removeChild(this);
-      }
-      this.y +=1;	
+	},
+  onenterframe: function() {
+		if(this.y > 280) {
+			game.rootScene.removeChild(this);
+		}
+		this.y +=1;	
 	}	
 });
 
 EnemyL1 = Class.create(Sprite, {
-   initialize: function() {
+	initialize: function() {
       Sprite.call(this, 26, 22);
       this.image = game.assets["shooter.gif"];
-		this.x = rand(150) + 30;
-		this.y = 0;
-		this.frame = 1;
+			this.x = rand(150) + 30;
+			this.y = 0;
+			this.frame = 1;
     },
     onenterframe: function() {
-      //document.write(increment);
-      //	document.write(" ");
-		if(rand(100) > 80 ) {
-			this.y +=1;
-		} 
-      else {
-			this.x+=increment;
-			if(this.y > 280) {
-				game.rootScene.removeChild(this);
-			}
-			if(this.x > 280) {
-				increment= increment * (-1);
-				this.x = 278;
-			}
-			if(this.x < 20) {
-				increment= increment * (-1);
-				this.x = 22;
+			if(rand(100) > 80 ) {
+				this.y +=1;
+			}  else {
+				this.x+=increment;
+				if(this.y > 280) {
+					game.rootScene.removeChild(this);
+				}
+				if(this.x > 280) {
+					increment= increment * (-1);
+					this.x = 278;
+				}
+				if(this.x < 20) {
+					increment= increment * (-1);
+					this.x = 22;
+				}
 			}
 		}
-	}
 });
 
 EnemyL2 = Class.create(Sprite, {
@@ -138,50 +133,51 @@ window.onload = function() {
     game.fps = 25;
     game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif');
 
-    game.onload = function(){
-	//background
-	 bg = new Sprite(320, 320);
-    bg.image = game.assets['bg.png'];
+		game.onload = function(){
 
-    ui = new Sprite(320, 30);
-    ui.image = game.assets['ui.gif'];
+		//background
+		bg = new Sprite(320, 320);
+		bg.image = game.assets['bg.png'];
+
+		ui = new Sprite(320, 30);
+		ui.image = game.assets['ui.gif'];
       
-	//adding an enemy
-	//enemy = new Enemy();
-	//game.rootScene.addChild(enemy);
-	//enemy1 = new Enemy();
-	//game.rootScene.addChild(enemy1);
+		//adding an enemy
+		//enemy = new Enemy();
+		//game.rootScene.addChild(enemy);
+		//enemy1 = new Enemy();
+		//game.rootScene.addChild(enemy1);
 	
-      bear = new Sprite(23, 19);
-      bear.image = game.assets["heart.gif"];
-      bear.x = 200;
-      bear.y = 200;
-      bear.frame = 5;
+		bear = new Sprite(23, 19);
+		bear.image = game.assets["heart.gif"];
+		bear.x = 200;
+		bear.y = 200;
+		bear.frame = 5;
 
-      toasty = new Sprite(31, 31);
-      toasty.image = game.assets["toasty.gif"];
-      toasty.frame = 0;
-      toasty.x = 0;
-      toasty.y = 240;
-      toasty.width = 31;
-      toasty.height = 31;
+		toasty = new Sprite(31, 31);
+		toasty.image = game.assets["toasty.gif"];
+		toasty.frame = 0;
+		toasty.x = 0;
+		toasty.y = 240;
+		toasty.width = 31;
+		toasty.height = 31;
 
-      moveSpeed = 7;
-		
+		moveSpeed = 7;
+
 		thing1 = new EnemyL0();
 		thing2 = new EnemyL1();
 		thing3 = new EnemyL2();
 		thing4 = new EnemyL3();
 		
 		
-      bear.addEventListener("enterframe", function() {
-         this.x += 1;
-			
+		bear.addEventListener("enterframe", function() {
+			this.x += 1;
 			if(this.x == 280) {
 				this.x = 20;
 			}
-            this.frame = this.age % 2 + 6;
-        });
+			this.frame = this.age % 2 + 6;
+		});
+
 		game.addEventListener('enterframe',function(e) {
 			/*if(rand(100) >99)
 			{
@@ -192,23 +188,23 @@ window.onload = function() {
 			}*/
 		});
 
-      game.rootScene.addEventListener('touchstart', function(e){
-         toasty.x = e.localX
-	      if(e.localY >= (game.height/2)){
-	    	   toasty.y = e.localY;
-	      }else{
-		      toasty.y = game.height/2;
-	      }
-      });
+		game.rootScene.addEventListener('touchstart', function(e){
+			toasty.x = e.localX
+			if(e.localY >= (game.height/2)){
+				toasty.y = e.localY;
+			}else{
+				toasty.y = game.height/2;
+			}
+		});
 
-      game.rootScene.addEventListener('touchmove', function(e){
-         toasty.x = e.localX
-         if(e.localY >= (game.height/2)){
-	      	toasty.y = e.localY;
-	      }else{
-		      toasty.y = game.height/2;
-	      }
-      });
+		game.rootScene.addEventListener('touchmove', function(e){
+			toasty.x = e.localX
+			if(e.localY >= (game.height/2)){
+				toasty.y = e.localY;
+			}else{
+				toasty.y = game.height/2;
+			}
+		});
 
       toasty.onenterframe = function() {
 			if(game.input.left && !game.input.right){
