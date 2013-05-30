@@ -16,7 +16,10 @@ EnemyL0 = Class.create(Sprite, {
     onenterframe: function() {
 		//document.write(increment);
 	//	document.write(" ");
-		
+			if(this.y > 280)
+			{
+				game.rootScene.removeChild(this);
+			}
 			this.y +=1;
 		
 	}
@@ -44,7 +47,7 @@ EnemyL1 = Class.create(Sprite, {
 		} else{
 		
 			this.x+=increment;
-			if(this.y == 280)
+			if(this.y > 280)
 			{
 				game.rootScene.removeChild(this);
 			}
@@ -80,7 +83,7 @@ EnemyL2 = Class.create(Sprite, {
 		} else{
 			this.y +=1;
 			//if it reaches the bottom of the screen remove it
-			if(this.y == 280)
+			if(this.y > 280)
 			{
 				game.rootScene.removeChild(this);
 			}
@@ -124,6 +127,10 @@ EnemyL3 = Class.create(Sprite, {
     onenterframe: function() {
 		//document.write(increment);
 	//	document.write(" ");
+		if(this.y > 280)
+			{
+				game.rootScene.removeChild(this);
+			}
 		if(game.frame%25 == 0)
 		{
 			this.y +=30;
