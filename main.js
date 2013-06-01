@@ -1,7 +1,7 @@
 enchant();
 
 increment = 1;
-shootingRate = 20;
+shootingRate = 20;//smaller number means shooting faster.
 
 EnemyL0 = Class.create(Sprite, {
 	initialize: function() {
@@ -19,11 +19,12 @@ EnemyL0 = Class.create(Sprite, {
             addBullet(this.x,this.y);
          }
 		}
-  
-		if(this.y > 280) {
+
+		if(this.y > 280 ||this.x < 10 || this.x > 300||this.intersect(toasty))  {
 			game.rootScene.removeChild(this);
 		}
 		this.y +=1;	
+		
 	}	
 });
 
@@ -44,12 +45,10 @@ EnemyL1 = Class.create(Sprite, {
             addBullet(this.x,this.y);
          }
 		}
-		
-	    if(this.intersect(toasty)) {        
-
-	        game.rootScene.removeChild(this);
-
-			} else if(rand(100) > 80 ) {
+		if(this.y > 280 ||this.x < 10 || this.x > 300||this.intersect(toasty) ) {
+			game.rootScene.removeChild(this);
+		}
+		if(rand(100) > 80 ) {
 				
 				this.y +=1;
 
@@ -92,10 +91,12 @@ EnemyL2 = Class.create(Sprite, {
             addBullet(this.x,this.y);
          }
 		}
-    if(this.intersect(toasty)) {        
-        game.rootScene.removeChild(this);
-
-		} else if(rand(100) > 80 ) {
+		if(this.y > 280 ||this.x < 10 || this.x > 300||this.intersect(toasty))  {
+			game.rootScene.removeChild(this);
+		}
+		
+		
+		if(rand(100) > 80 ) {
 		
 		}  else {
 			this.y +=1;
@@ -134,7 +135,7 @@ EnemyL3 = Class.create(Sprite, {
 		this.frame = 3;
     },
     onenterframe: function() {
-	
+
 		//decide to shoot or not
 		if(rand(100) > 40 ) {
 		 if(game.frame % 25 == 0) {
@@ -142,10 +143,11 @@ EnemyL3 = Class.create(Sprite, {
          }
 		}
       //document.write(increment);
-      //	document.write(" ");
-		if(this.y > 280) {
-				game.rootScene.removeChild(this);
+      //	document.write(" ");	
+	  if(this.y > 280 ||this.x < 10 || this.x > 300||this.intersect(toasty))  {
+			game.rootScene.removeChild(this);
 		}
+	
 		if(game.frame%25 == 0) {
 			this.y +=30;
 		}
@@ -153,6 +155,11 @@ EnemyL3 = Class.create(Sprite, {
 	
 });
 
+
+function addToastyBullet(){
+	thing = new breadbullet();
+    game.rootScene.addChild(thing);
+}
 function addEnemyL3() {
 	thing = new EnemyL3();
 	game.rootScene.addChild(thing);
@@ -288,7 +295,7 @@ window.onload = function() {
 			}
 			if(this.age%shootingRate == 0)
 			{
-			addToastyBullet(this.x,this.y);
+			addToastyBullet();
 			}
 		}
 
@@ -335,16 +342,17 @@ function addBullet(x,y){
     game.rootScene.addChild(bullet);
 }
 
-function addToastyBullet(x,y){
-    var bullet = new Sprite(14, 14);    
-    bullet.x = x;               
-    bullet.y = y;
-    bullet.image = game.assets['toastybullets.gif'];
 
-    bullet.frame = 0;
-
-    bullet.addEventListener('enterframe', function(e) {
-        if(this.age %4 === 0)
+breadbullet = Class.create(Sprite, {
+	initialize: function() {
+		Sprite.call(this, 14, 14);
+		this.image = game.assets['toastybullets.gif'];
+		this.x = toasty.x;
+		this.y = toasty.y;
+		this.frame = 0;
+	},
+	 onenterframe: function() {
+	  if(this.age %4 === 0)
 		{
 			if(this.frame == 2)
 			{
@@ -353,6 +361,9 @@ function addToastyBullet(x,y){
 				this.frame++;
 			}
 		}
+		if(this.y < 0 )  {
+			game.rootScene.removeChild(this);
+		}
 		if(this.intersect(thing0)||this.intersect(thing1)||this.intersect(thing2)
 		||this.intersect(thing3)){       
             game.rootScene.removeChild(this);
@@ -360,10 +371,9 @@ function addToastyBullet(x,y){
         }else{
             this.y -= 2
         }
-    });
-	
-    game.rootScene.addChild(bullet);
-}
+	}	
+});
+
 
 function rand(num) {
     return Math.floor(Math.random() * num);
