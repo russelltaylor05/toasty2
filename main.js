@@ -1,6 +1,7 @@
 enchant();
 
 increment = 1;
+shootingRate = 20;
 
 EnemyL0 = Class.create(Sprite, {
 	initialize: function() {
@@ -176,7 +177,7 @@ function addEnemyL0() {
 window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif');
 
 		game.onload = function(){
 
@@ -285,6 +286,10 @@ window.onload = function() {
 					this.y = game.height - this.height;
 				}
 			}
+			if(this.age%shootingRate == 0)
+			{
+			addToastyBullet(this.x,this.y);
+			}
 		}
 
       game.score = 0;
@@ -327,6 +332,36 @@ function addBullet(x,y){
             this.y += 3
         }
     });
+    game.rootScene.addChild(bullet);
+}
+
+function addToastyBullet(x,y){
+    var bullet = new Sprite(14, 14);    
+    bullet.x = x;               
+    bullet.y = y;
+    bullet.image = game.assets['toastybullets.gif'];
+
+    bullet.frame = 0;
+
+    bullet.addEventListener('enterframe', function(e) {
+        if(this.age %4 === 0)
+		{
+			if(this.frame == 2)
+			{
+				this.frame = 0;
+			} else {
+				this.frame++;
+			}
+		}
+		if(this.intersect(thing0)||this.intersect(thing1)||this.intersect(thing2)
+		||this.intersect(thing3)){       
+            game.rootScene.removeChild(this);
+            game.score ++; 
+        }else{
+            this.y -= 2
+        }
+    });
+	
     game.rootScene.addChild(bullet);
 }
 
