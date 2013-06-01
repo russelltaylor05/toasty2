@@ -20,6 +20,7 @@ EnemyL0 = Class.create(Sprite, {
          }
 		}
 
+
 		if(this.y > 280 ||this.x < 10 || this.x > 300||this.intersect(toasty))  {
 			game.rootScene.removeChild(this);
 		}
@@ -361,7 +362,7 @@ breadbullet = Class.create(Sprite, {
 				this.frame++;
 			}
 		}
-		if(this.y < 0 )  {
+		if(this.y < 10 )  {
 			game.rootScene.removeChild(this);
 		}
 		if(this.intersect(thing0)||this.intersect(thing1)||this.intersect(thing2)
