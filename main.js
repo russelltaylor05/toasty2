@@ -11,6 +11,14 @@ EnemyL0 = Class.create(Sprite, {
 		this.frame = 0;
 	},
   onenterframe: function() {
+	
+			//decide to shoot or not
+		if(rand(100) > 70 ) {
+		 if(game.frame % 25 == 0) {
+            addBullet(this.x,this.y);
+         }
+		}
+  
 		if(this.y > 280) {
 			game.rootScene.removeChild(this);
 		}
@@ -28,6 +36,14 @@ EnemyL1 = Class.create(Sprite, {
     },
     onenterframe: function() 
 		{
+		
+		//decide to shoot or not
+		if(rand(100) > 60 ) {
+		 if(game.frame % 25 == 0) {
+            addBullet(this.x,this.y);
+         }
+		}
+		
 	    if(this.intersect(toasty)) {        
 
 	        game.rootScene.removeChild(this);
@@ -68,6 +84,13 @@ EnemyL2 = Class.create(Sprite, {
 	/* Enter Frames */
 	onenterframe: function() 
 	{
+	
+		//decide to shoot or not
+		if(rand(100) > 50 ) {
+		 if(game.frame % 25 == 0) {
+            addBullet(this.x,this.y);
+         }
+		}
     if(this.intersect(toasty)) {        
         game.rootScene.removeChild(this);
 
@@ -110,6 +133,13 @@ EnemyL3 = Class.create(Sprite, {
 		this.frame = 3;
     },
     onenterframe: function() {
+	
+		//decide to shoot or not
+		if(rand(100) > 40 ) {
+		 if(game.frame % 25 == 0) {
+            addBullet(this.x,this.y);
+         }
+		}
       //document.write(increment);
       //	document.write(" ");
 		if(this.y > 280) {
@@ -179,10 +209,10 @@ window.onload = function() {
 
 		moveSpeed = 7;
 
-		thing1 = new EnemyL0();
-		thing2 = new EnemyL1();
-		thing3 = new EnemyL2();
-		thing4 = new EnemyL3();
+		thing0 = new EnemyL0();
+		thing1 = new EnemyL1();
+		thing2 = new EnemyL2();
+		thing3 = new EnemyL3();
 		
 		
 		bear.addEventListener("enterframe", function() {
@@ -259,7 +289,7 @@ window.onload = function() {
 
       game.score = 0;
 
-      game.rootScene.addEventListener('enterframe',function(){
+    /*  game.rootScene.addEventListener('enterframe',function(){
          if(game.frame % 10 == 0) {
             addBullet();
          }
@@ -267,24 +297,24 @@ window.onload = function() {
              //game.end(game.score, game.score + " END");
          }
      });
-      
+      */
       game.rootScene.addChild(bg);
       game.rootScene.addChild(bear);
       game.rootScene.addChild(toasty);
+     game.rootScene.addChild(thing0);
       game.rootScene.addChild(thing1);
       game.rootScene.addChild(thing2);
       game.rootScene.addChild(thing3);
-      game.rootScene.addChild(thing4);
       game.rootScene.addChild(ui);
 
    }
    game.start();
 }
 
-function addBullet(pos){
+function addBullet(x,y){
     var bullet = new Sprite(14, 23);    
-    bullet.x = rand(320);               
-    bullet.y = 0;
+    bullet.x = x;               
+    bullet.y = y;
     bullet.image = game.assets['bullet.gif'];
 
     bullet.frame = 0;
