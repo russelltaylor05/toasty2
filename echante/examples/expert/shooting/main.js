@@ -221,7 +221,7 @@ var Player = enchant.Class.create(enchant.Sprite, {
          * In the argument classes that succeed enchant.Node (Entity, Group, Scene, Label, Sprite) are set.
          * Group#addChild(node) {Function}
          * オブジェクトをノードツリーに追加するメソッド。
-         * ここでは、自機の画像を表示するスプライトオブジェクトを、rootScene に追加している。
+         * ここでは、自 機の画像を表示するスプライトオブジェクトを、rootScene に追加している。
          * Game.rootScene は Group を継承した Scene クラスのインスタンスで、描画ツリーのルートになる特別な Scene オブジェクト。
          * この rootScene に描画したいオブジェクトを子として追加する (addChild) ことで、毎フレーム描画されるようになる。
          * 引数には enchant.Node を継承したクラス (Entity, Group, Scene, Label, Sprite..) を指定する。
