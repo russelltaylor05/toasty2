@@ -3,7 +3,7 @@ enchant();
 weaponlevel = 1;
 increment = 1;
 bulletlevel = 10;
-enemybulletlevel = 1;
+enemybulletlevel = 5;
 playershootingRate = 20;//smaller is faster
 enemyshootingRate = 50;
 moveSpeed = 7;
