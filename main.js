@@ -64,8 +64,8 @@ window.onload = function() {
 		}
 	
 	});
-	scoreLabel = new ScoreLabel(8,8);
-	game.rootScene.addChild(ScoreLabel);
+//	scoreLabel = new ScoreLabel(8,8);
+//	game.rootScene.addChild(ScoreLabel);
 	game.rootScene.addChild(bg);
     game.rootScene.addChild(toasty);
     game.rootScene.addChild(ui);
@@ -330,6 +330,13 @@ EnemyL3 = Class.create(Sprite, {
 
 });
 
+
+function addToastyBullet(){
+	thing = new breadbullet();
+    game.rootScene.addChild(thing);
+}
+
+function addToastyBullet2(){
 	thing = new breadbullet2();
 	thing1 = new breadbullet3();
     game.rootScene.addChild(thing1);
