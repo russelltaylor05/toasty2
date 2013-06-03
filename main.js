@@ -16,7 +16,7 @@ window.onload = function() {
     game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif');
 	game.score = 0;
 	game.touched = false;
-	
+
 		game.onload = function(){
 		//background
 		bg = new Sprite(320,320);
@@ -64,12 +64,12 @@ window.onload = function() {
 		}
 	
 	});
-//	scoreLabel = new ScoreLabel(8,8);
-//	game.rootScene.addChild(ScoreLabel);
+	
+
 	game.rootScene.addChild(bg);
     game.rootScene.addChild(toasty);
     game.rootScene.addChild(ui);
-	  
+
 
    };
    game.start();
@@ -373,7 +373,7 @@ var shootrocket =  Class.create(rocket, {
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
             if(toasty.within(this, 8)) {
-                //game.end(game.score, "SCORE: " + game.score) how do i end the game?
+                game.end();
             }
         });
     }
