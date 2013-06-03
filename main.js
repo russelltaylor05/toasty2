@@ -87,26 +87,37 @@ var toasty = Class.create(Sprite,{
 		this.frame = 0;
 
 		game.rootScene.addEventListener('touchstart', function(e){
-			game.touched = true;
-			toasty.x = e.localX
-			if(e.localY >= (game.height/2)){
-				toasty.y = e.localY;
-			}else{
-				toasty.y = game.height/2;
+			if((e.localX <= toasty.x + 20 && e.localX >= toasty.x -20) &&
+				(e.localY <= toasty.y + 20 && e.localY >= toasty.y - 20)){
+				
+				game.touched = true;
+				toasty.x = e.localX
+				if(e.localY >= (game.height/2)){
+					toasty.y = e.localY;
+				}else{
+					toasty.y = game.height/2;
+				}
+			}
+			else{
+				game.touched = false;
 			}
 		});
 
 		game.rootScene.addEventListener('touchmove', function(e){
-			toasty.x = e.localX
-			if(e.localY >= (game.height/2)){
-				toasty.y = e.localY;
-			}else{
-				toasty.y = game.height/2;
+			if(game.touched){
+				toasty.x = e.localX
+				if(e.localY >= (game.height/2)){
+					toasty.y = e.localY;
+				}else{
+					toasty.y = game.height/2;
+				}
 			}
 		});
 		game.rootScene.addEventListener('touchend', function (e) {
-            toasty.x = e.x;
-            game.touched = false;
+			if(game.touched) {
+				toasty.x = e.x;
+				game.touched = false;
+			}
         });
 		
 		
