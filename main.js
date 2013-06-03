@@ -32,7 +32,7 @@ window.onload = function() {
 		game.addEventListener('enterframe',function() {
 
 
-		if(max < 5 && rand(100) > 50 )
+		if(max < 10 /*&& rand(100) > 50*/ )
 		{
 				max++;
 				if(rand(4) == 0 )
@@ -179,7 +179,6 @@ EnemyL0 = Class.create(Sprite, {
 		this.y +=1;	
 	},
 	remove: function(){
-		max--;
 		game.rootScene.removeChild(this);
 		delete enemies[this.key];
 	}
@@ -371,7 +370,7 @@ var rocket = Class.create(Sprite,{
 
 var shootrocket =  Class.create(rocket, {
 	    initialize: function (x, y) {
-        rocket.call(this, x, y, Math.PI);
+        rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
             if(toasty.within(this, 8)) {
                 //game.end(game.score, "SCORE: " + game.score) how do i end the game?
@@ -462,6 +461,7 @@ var breadbullet = Class.create(Sprite, {
 				this.frame = 0;
 			} else {
 				this.frame++;
+				this.frame++;
 			}
 		}
 			this.y -= bulletlevel;
@@ -489,6 +489,7 @@ var shootbreadbullet = Class.create(breadbullet, {
 					this.remove();
 					enemies[i].remove();
 					game.score+=100;
+					max--;
 				}
 			}
 		});
