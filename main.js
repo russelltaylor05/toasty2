@@ -13,7 +13,7 @@ max =0;
 window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav');
 	game.score = 0;
 	game.touched = false;
 
@@ -124,6 +124,7 @@ var toasty = Class.create(Sprite,{
 		this.addEventListener('enterframe', function(){
 			if(game.touched && game.frame%playershootingRate == 0){
 				var s = new shootbreadbullet(this.x, this.y - 15);
+				game.assets['toaster-pop.wav'].play();
 			}
 		});
 	},
