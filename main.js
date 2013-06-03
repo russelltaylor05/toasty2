@@ -384,9 +384,10 @@ var shootrocket =  Class.create(rocket, {
 	    initialize: function (x, y) {
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
-            if(toasty.within(this, 8)) {
-                game.end();
+            if(toasty.within(this, 15)) {
+               game.end();
             }
+			
         });
     }
 });
