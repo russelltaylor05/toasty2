@@ -14,15 +14,13 @@ window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
     game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
-	game.score = 0;
-	game.touched = false;
+		game.score = 0;
+		game.touched = false;
+		game.keybind(32, 'a');
 
-	game.onload = function(){
-		//background
-
-		title = new TitleScreen();
-		game.pushScene(title);
-
+		game.onload = function(){
+			title = new TitleScreen();
+			game.pushScene(title);
    }
    game.start();
 }
@@ -163,7 +161,8 @@ var toasty = Class.create(Sprite,{
 		
 		
 		this.addEventListener('enterframe', function(){
-			if(game.touched && game.frame%playershootingRate == 0){
+			/* Shoots on mouse_click or space bar pressed */
+			if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
 				var s = new shootbreadbullet(this.x, this.y - 15);
 				game.assets['toaster-pop.wav'].play();
 			}
