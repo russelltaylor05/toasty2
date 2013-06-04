@@ -4,7 +4,7 @@ weaponlevel = 1;
 increment = 1;
 bulletlevel = 10;
 enemybulletlevel = 5;
-playershootingRate = 20;//smaller is faster
+playershootingRate = 20; //smaller is faster
 enemyshootingRate = 50;
 moveSpeed = 7;
 max =0;
@@ -510,23 +510,21 @@ var breadbullet = Class.create(Sprite, {
 		this.frame = 0;
 		
 		this.addEventListener('enterframe',function(){
-		if(this.age %4 === 0)
-		{
-			if(this.frame == 2)
+			if(this.age % 4 === 0)
 			{
-				this.frame = 0;
-			} else {
-				this.frame++;
-				this.frame++;
+				if(this.frame == 2)
+				{
+					this.frame = 0;
+				} else {
+					this.frame++;
+					this.frame++;
+				}
 			}
-		}
-			this.y -= bulletlevel;
-			
-			if(this.y <10)
+			this.y -= bulletlevel;		
+			if(this.y <10) 
 			{
 				this.remove();
-			}
-			
+			}			
 		});
 		game.rootScene.addChild(this);		
 	},
@@ -538,7 +536,7 @@ var breadbullet = Class.create(Sprite, {
 
 var shootbreadbullet = Class.create(breadbullet, {
 	initialize: function(x,y){
-		breadbullet.call(this,x+5,y);
+		breadbullet.call(this, x + 5, y);
 		this.addEventListener('enterframe',function(){
 			for(var i in enemies) {
 				if(enemies[i].intersect(this)){
