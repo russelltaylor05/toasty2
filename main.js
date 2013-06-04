@@ -13,27 +13,73 @@ max =0;
 window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
 	game.score = 0;
 	game.touched = false;
 
-		game.onload = function(){
+	game.onload = function(){
 		//background
+
+		title = new TitleScreen();
+		game.pushScene(title);
+
+   }
+   game.start();
+}
+
+var TitleScreen = Class.create(Scene, {
+	initialize: function () {
+		Scene.apply(this);
+
+		titleBG = new Sprite(320,320);
+		titleBG.image = game.assets['titlebg.png'];
+
+		this.addChild(titleBG);
+
+		titleBG.addEventListener('touchstart', function() {
+			var storyScene = new StoryScreen();
+   		game.replaceScene(storyScene);
+			game.popScene(this.scene);
+      });
+	}
+});
+
+var StoryScreen = Class.create(Scene, {
+	initialize: function () {
+		Scene.apply(this);
+
+		story = new Sprite(320,320);
+		story.image = game.assets['prologue.png'];
+		story.frame = 0;
+
+		story.addEventListener('touchstart', function() {
+			if (story.frame >= 8) {
+				game.rootScene.removeChild(story);
+				var gameScene = new GameScreen();
+   			game.replaceScene(gameScene);
+				game.popScene(this.scene);
+			}
+			else {
+				story.frame++;
+				}
+      });
+
+		game.rootScene.addChild(story);
+	}
+});
+
+var GameScreen = Class.create(Scene, {
+	initialize: function () {
+		Scene.apply(this);
 		bg = new Sprite(320,320);
 		bg.image = game.assets['bg.png'];
-		ui = new Sprite(320, 30);
-		ui.image = game.assets['ui.gif'];
-      
 	
 		toasty = new toasty();
 		enemies = new Array();
 
 
-		game.addEventListener('enterframe',function() {
-
-
-		if(max < 10 /*&& rand(100) > 50*/ )
-		{
+		game.rootScene.addEventListener('enterframe',function() {
+			if(max < 10 /*&& rand(100) > 50*/ ) {
 				max++;
 				if(rand(4) == 0 )
 				{
@@ -59,21 +105,16 @@ window.onload = function() {
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				
-				
-		}
-	
-	});
-	
+			}
+		});
 
 	game.rootScene.addChild(bg);
-    game.rootScene.addChild(toasty);
-    game.rootScene.addChild(ui);
+	game.rootScene.addChild(toasty);
+	game.rootScene.addChild(ui);
 
+	}
+});
 
-   };
-   game.start();
-}
 
 var toasty = Class.create(Sprite,{
 
@@ -385,6 +426,9 @@ var shootrocket =  Class.create(rocket, {
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
             if(toasty.within(this, 15)) {
+					over = new Sprite(320, 320);
+					over.image = game.assets['gameover.png'];
+					game.rootScene.addChild(over);
                game.end();
             }
 			
@@ -495,7 +539,7 @@ var breadbullet = Class.create(Sprite, {
 
 var shootbreadbullet = Class.create(breadbullet, {
 	initialize: function(x,y){
-		breadbullet.call(this,x,y);
+		breadbullet.call(this,x+5,y);
 		this.addEventListener('enterframe',function(){
 			for(var i in enemies) {
 				if(enemies[i].intersect(this)){
