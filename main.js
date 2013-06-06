@@ -15,14 +15,17 @@ window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
     game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
-		game.score = 0;
-		game.touched = false;
-		game.keybind(32, 'a');
+	game.score = 0;
+	game.touched = false;
+	game.keybind(32, 'a');
 
-		game.onload = function(){
-			title = new TitleScreen();
+	
+game.onload = function(){
+
+   title = new TitleScreen();
 			game.pushScene(title);
-   }
+   
+}
    game.start();
 }
 
@@ -429,6 +432,38 @@ var shootrocket =  Class.create(rocket, {
 					over = new Sprite(320, 320);
 					over.image = game.assets['gameover.png'];
 					game.rootScene.addChild(over);
+
+
+
+
+
+var url = "http://www.ryanjchan.com/getscore.php";
+var method = "GET";
+var async = false;
+var request = new XMLHttpRequest();
+request.open(method,url,async);
+request.send(null);
+var out = JSON.parse(request.responseText);
+
+
+var url2 = "http://www.ryanjchan.com/newscore.php?newscore="+game.score;
+var method2 = "POST";
+var post  = new XMLHttpRequest();
+post.open(method2,url2,async);
+post.send(null);
+
+
+console.log(out.main[0].score);
+               
+
+
+game.rootScene.addChild(over);
+
+
+
+
+
+
                game.end();
             }
 			
@@ -436,7 +471,6 @@ var shootrocket =  Class.create(rocket, {
     }
 });
    
-
 
 
 breadbullet3 = Class.create(Sprite, {
