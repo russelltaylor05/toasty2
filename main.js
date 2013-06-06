@@ -436,7 +436,7 @@ var shootrocket =  Class.create(rocket, {
 
 
 
-
+/*
 var url = "http://www.ryanjchan.com/getscore.php";
 var method = "GET";
 var async = false;
@@ -454,7 +454,7 @@ post.send(null);
 
 
 console.log(out.main[0].score);
-               
+  */             
 
 
 game.rootScene.addChild(over);
