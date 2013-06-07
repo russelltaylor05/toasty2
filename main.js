@@ -14,7 +14,7 @@ center = 20;
 window.onload = function() {
     game = new Game(320, 320);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
 	game.score = 0;
 	game.touched = false;
 	game.keybind(32, 'a');
@@ -122,7 +122,7 @@ var toasty = Class.create(Sprite,{
 
 	initialize: function() {
 		Sprite.call(this,16,16);
-		this.image = game.assets["toasty.gif"];
+		this.image = game.assets["toasty2.gif"];
 		this.x = 20;
 		this.y = 240;
 		this.width = 31;
