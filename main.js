@@ -9,10 +9,24 @@ enemyshootingRate = 50;
 moveSpeed = 7;
 max =0;
 center = 20;
-
+var hs = 0;
 
 window.onload = function() {
+
     game = new Game(320, 320);
+	scoreLabel = new Label('Score: ');
+	highscoreLabel = new Label('High Score: ');
+	highscoreLabel.text = 'High Score: ' + hs;
+	highscoreLabel.x = 220;
+	highscoreLabel.y=5;
+	highscoreLabel.color = "red";
+	scoreLabel.addEventListener('enterframe', function(){
+    this.text = "Score:"+ game.score;
+	});
+	scoreLabel.x = 5;
+	scoreLabel.y = 5;
+	scoreLabel.color = "red";
+	//game.rootScene.addChild(scoreLabel);
     game.fps = 25;
     game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
 	game.score = 0;
@@ -21,11 +35,12 @@ window.onload = function() {
 
 	
 game.onload = function(){
+	
+    title = new TitleScreen();
 
-   title = new TitleScreen();
-			game.pushScene(title);
-   
-}
+	game.pushScene(title);
+  
+	}
    game.start();
 }
 
@@ -67,6 +82,7 @@ var StoryScreen = Class.create(Scene, {
       });
 
 		game.rootScene.addChild(story);
+		
 	}
 });
 
@@ -75,7 +91,7 @@ var GameScreen = Class.create(Scene, {
 		Scene.apply(this);
 		bg = new Sprite(320,320);
 		bg.image = game.assets['bg.png'];
-	
+		
 		toasty = new toasty();
 		enemies = new Array();
 
@@ -112,7 +128,9 @@ var GameScreen = Class.create(Scene, {
 
 	game.rootScene.addChild(bg);
 	game.rootScene.addChild(toasty);
-	game.rootScene.addChild(ui);
+	game.rootScene.addChild(scoreLabel);
+	game.rootScene.addChild(highscoreLabel);
+
 
 	}
 });
@@ -123,7 +141,7 @@ var toasty = Class.create(Sprite,{
 	initialize: function() {
 		Sprite.call(this,16,16);
 		this.image = game.assets["toasty2.gif"];
-		this.x = 20;
+		this.x = 140;
 		this.y = 240;
 		this.width = 31;
 		this.height = 31;
@@ -426,20 +444,21 @@ var rocket = Class.create(Sprite,{
 
 var shootrocket =  Class.create(rocket, {
 	    initialize: function (x, y) {
+		
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
+	
             if(toasty.within(this, 15)) {
 					over = new Sprite(320, 320);
 					over.image = game.assets['gameover.png'];
+		
+					hs = game.score;
 					game.rootScene.addChild(over);
 
 
 
 
 
-
-
-game.rootScene.addChild(over);
 
 
 
