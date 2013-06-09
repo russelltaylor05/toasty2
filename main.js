@@ -4,11 +4,12 @@ weaponlevel = 1;
 increment = 1;
 bulletlevel = 10;
 enemybulletlevel = 5;
-playershootingRate = 20; //smaller is faster
+playershootingRate = 30; //smaller is faster
 enemyshootingRate = 50;
 moveSpeed = 7;
 max =0;
 center = 20;
+hand_y = 40;
 var hs = 0;
 
 window.onload = function() {
@@ -144,17 +145,17 @@ var toasty = Class.create(Sprite,{
 		this.x = 140;
 		this.y = 240;
 		this.width = 31;
-		this.height = 31;
+		this.height = 62;
 		this.frame = 0;
 
 		game.rootScene.addEventListener('touchstart', function(e){
 			if((e.localX <= toasty.x + 30 && e.localX >= toasty.x -30) &&
-				(e.localY <= toasty.y + 30 && e.localY >= toasty.y - 30)){
+				(e.localY <= toasty.y + 70 && e.localY >= toasty.y - 30)){
 				
 				game.touched = true;
 				toasty.x = e.localX - center;
 				if(e.localY >= (game.height/2)){
-					toasty.y = e.localY - center/2;
+					toasty.y = e.localY - center/2 - hand_y;
 				}else{
 					toasty.y = game.height/2;
 				}
@@ -167,8 +168,8 @@ var toasty = Class.create(Sprite,{
 		game.rootScene.addEventListener('touchmove', function(e){
 			if(game.touched){
 				toasty.x = e.localX - center;
-				if(e.localY >= (game.height/2)){
-					toasty.y = e.localY - center/2;
+				if(e.localY >= (game.height/2) + 60){
+					toasty.y = e.localY - center/2 - hand_y;
 				}else{
 					toasty.y = game.height/2;
 				}
