@@ -8,6 +8,7 @@ playershootingRate = 30; //smaller is faster
 enemyshootingRate = 50;
 moveSpeed = 7;
 max =0;
+enemymax = 10;
 center = 20;
 hand_y = 40;
 var hs = 0;
@@ -103,7 +104,8 @@ var GameScreen = Class.create(Scene, {
 
 
 		game.rootScene.addEventListener('enterframe',function() {
-			if(max < 10 /*&& rand(100) > 50*/ ) {
+			
+			if(max < enemymax) {
 				max++;
 				if(rand(4) == 0 )
 				{
@@ -111,25 +113,27 @@ var GameScreen = Class.create(Scene, {
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 1 )
+				else if(rand(4) == 1 )
 				{
 				var enemy = new EnemyL1();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 2 )
+				else if(rand(4) == 2 )
 				{
 				var enemy = new EnemyL2();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 3 )
+				else if(rand(4) == 3 )
 				{
 				var enemy = new EnemyL3();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
 			}
+			
+			
 		});
 
 	game.rootScene.addChild(bg);
@@ -187,14 +191,26 @@ var toasty = Class.create(Sprite,{
 				game.touched = false;
 			}
         });
-		
+
 		
 		this.addEventListener('enterframe', function(){
 			/* Shoots on mouse_click or space bar pressed */
-			if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
-				var s = new shootbreadbullet(this.x, this.y - 15);
-				game.assets['toaster-pop.wav'].play();
+		if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
+			var s = new shootbreadbullet(this.x, this.y - 15);
+			game.assets['toaster-pop.wav'].play();
+		}
+		for(var i in enemies) {
+			if(enemies[i].intersect(this)){
+							over = new Sprite(320, 320);
+					over.image = game.assets['gameover.png'];
+		
+					hs = game.score;
+					game.rootScene.addChild(over);
+               game.end();
 			}
+		}	
+			
+			
 		});
 	},
 	
@@ -246,8 +262,7 @@ var toasty = Class.create(Sprite,{
 		this.width = 36;
 		this.height = 36;
 		this.frame = 0;
-	
-	
+		
 		game.rootScene.addEventListener('touchstart', function(e){
 			if(e.localX <= pause.x + 36 && e.localX >= pause.x - 36 &&
 				e.localY <= pause.y + 36 && e.localY >= pause.y - 36){
@@ -485,20 +500,12 @@ var shootrocket =  Class.create(rocket, {
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
 	
-            if(toasty.within(this, 15)) {
+            if(toasty.intersect(this)/*toasty.within(this, 15)*/) {
 					over = new Sprite(320, 320);
 					over.image = game.assets['gameover.png'];
 		
 					hs = game.score;
 					game.rootScene.addChild(over);
-
-
-
-
-
-
-
-
 
 
 
@@ -617,6 +624,11 @@ var shootbreadbullet = Class.create(breadbullet, {
 					enemies[i].remove();
 					game.score+=100;
 					max--;
+					
+					if(game.score>0 && game.score%500 == 0)
+					{
+						enemymax+=2;
+					}
 				}
 			}
 		});
