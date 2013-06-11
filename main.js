@@ -29,7 +29,7 @@ window.onload = function() {
 	scoreLabel.color = "red";
 	//game.rootScene.addChild(scoreLabel);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'intro.png','gameover.png', 'Pause.png');
+    game.preload('assets/images/bg.png','assets/images/bullet.gif','assets/images/toasty2.gif','assets/images/shooter.gif','assets/images/toastybullets.gif', 'assets/sounds/toaster-pop.wav', 'assets/images/titlebg.png', 'assets/images/intro.png','assets/images/gameover.png', 'assets/images/Pause.png');
 	game.score = 0;
 	game.touched = false;
 	game.keybind(32, 'a');
@@ -50,7 +50,7 @@ var TitleScreen = Class.create(Scene, {
 		Scene.apply(this);
 
 		titleBG = new Sprite(320,320);
-		titleBG.image = game.assets['titlebg.png'];
+		titleBG.image = game.assets['assets/images/titlebg.png'];
 
 		this.addChild(titleBG);
 
@@ -67,10 +67,10 @@ var StoryScreen = Class.create(Scene, {
 		Scene.apply(this);
 
 		bg = new Sprite(320,320);
-		bg.image = game.assets['bg.png'];
+		bg.image = game.assets['assets/images/bg.png'];
 		
 		story = new Sprite(320,320);
-		story.image = game.assets['intro.png'];
+		story.image = game.assets['assets/images/intro.png'];
 		story.frame = 0;
 
 		story.addEventListener('touchstart', function() {
@@ -95,7 +95,7 @@ var GameScreen = Class.create(Scene, {
 	initialize: function () {
 		Scene.apply(this);
 		bg = new Sprite(320,320);
-		bg.image = game.assets['bg.png'];
+		bg.image = game.assets['assets/images/bg.png'];
 		
 		/*pause = new pause();*/
 		toasty = new toasty();
@@ -149,7 +149,7 @@ var toasty = Class.create(Sprite,{
 
 	initialize: function() {
 		Sprite.call(this,16,16);
-		this.image = game.assets["toasty2.gif"];
+		this.image = game.assets["assets/images/toasty2.gif"];
 		this.x = 140;
 		this.y = 240;
 		this.width = 31;
@@ -195,7 +195,7 @@ var toasty = Class.create(Sprite,{
 			/* Shoots on mouse_click or space bar pressed */
 		if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
 			var s = new shootbreadbullet(this.x, this.y - 15);
-			game.assets['toaster-pop.wav'].play();
+			game.assets['assets/sounds/toaster-pop.wav'].play();
 		}
 		for(var i in enemies) {
 			if(enemies[i].intersect(this)){
@@ -280,7 +280,7 @@ EnemyL0 = Class.create(Sprite, {
 
 	initialize: function() {
 		Sprite.call(this, 26, 22);
-		this.image = game.assets["shooter.gif"];
+		this.image = game.assets["assets/images/shooter.gif"];
 		this.x = rand(270) + 30;
 		this.y = 0;
 		this.frame = 0;
@@ -310,7 +310,7 @@ EnemyL1 = Class.create(Sprite, {
 	
 	initialize: function() {
       Sprite.call(this, 26, 22);
-      this.image = game.assets["shooter.gif"];
+      this.image = game.assets["assets/images/shooter.gif"];
 			this.x = rand(270) + 30;
 			this.y = 0;
 			this.frame = 1;
@@ -358,7 +358,7 @@ EnemyL2 = Class.create(Sprite, {
 	initialize: function() 
 	{
 		Sprite.call(this, 26, 22);
-		this.image = game.assets["shooter.gif"];
+		this.image = game.assets["assets/images/shooter.gif"];
 		this.x = rand(270) + 30;
 		this.y = 0;
 		this.frame = 2;
@@ -422,7 +422,7 @@ EnemyL3 = Class.create(Sprite, {
 
    initialize: function() {
       Sprite.call(this, 26, 22);
-      this.image = game.assets["shooter.gif"];
+      this.image = game.assets["assets/images/shooter.gif"];
 		this.x = rand(270) + 30;
 		this.y = 0;
 		this.frame = 3;
@@ -467,7 +467,7 @@ function addToastyBullet2(){
 var rocket = Class.create(Sprite,{
 	initialize: function(x,y) {
 		Sprite.call(this, 14, 23);
-		this.image = game.assets['bullet.gif'];
+		this.image = game.assets['assets/images/bullet.gif'];
 		this.x = x;
 		this.y = y;
 		this.frame = 0;
@@ -498,7 +498,7 @@ var shootrocket =  Class.create(rocket, {
 	
             if(toasty.intersect(this)/*toasty.within(this, 15)*/) {
 					ending = new Sprite(320,320);
-					ending.image = game.assets['gameover.png'];
+					ending.image = game.assets['assets/images/gameover.png'];
 					game.rootScene.addChild(ending);
 					game.end();
 				}
@@ -511,7 +511,7 @@ var shootrocket =  Class.create(rocket, {
 breadbullet3 = Class.create(Sprite, {
 	initialize: function() {
 		Sprite.call(this, 14, 14);
-		this.image = game.assets['toastybullets.gif'];
+		this.image = game.assets['assets/images/toastybullets.gif'];
 		this.x = toasty.x+15;
 		this.y = toasty.y -15;
 		this.frame = 0;
@@ -542,7 +542,7 @@ breadbullet3 = Class.create(Sprite, {
 breadbullet2 = Class.create(Sprite, {
 	initialize: function() {
 		Sprite.call(this, 14, 14);
-		this.image = game.assets['toastybullets.gif'];
+		this.image = game.assets['assets/images/toastybullets.gif'];
 		this.x = toasty.x;
 		this.y = toasty.y -15;
 		this.frame = 0;
@@ -574,7 +574,7 @@ breadbullet2 = Class.create(Sprite, {
 var breadbullet = Class.create(Sprite, {
 	initialize: function(x,y) {
 		Sprite.call(this, 14, 14);
-		this.image = game.assets['toastybullets.gif'];
+		this.image = game.assets['assets/images/toastybullets.gif'];
 		this.x = x;
 		this.y = y;
 		this.frame = 0;
