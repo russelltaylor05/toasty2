@@ -15,6 +15,9 @@ var hs = 0;
 window.onload = function() {
 
     game = new Game(320, 320);
+	
+
+	
 	scoreLabel = new Label('Score: ');
 	highscoreLabel = new Label('High Score: ');
 	highscoreLabel.text = 'High Score: ' + hs;
@@ -93,6 +96,7 @@ var GameScreen = Class.create(Scene, {
 		bg = new Sprite(320,320);
 		bg.image = game.assets['bg.png'];
 		
+		pause = new pause();
 		toasty = new toasty();
 		enemies = new Array();
 
@@ -131,6 +135,7 @@ var GameScreen = Class.create(Scene, {
 	game.rootScene.addChild(toasty);
 	game.rootScene.addChild(scoreLabel);
 	game.rootScene.addChild(highscoreLabel);
+	game.rootScene.addChild(pause);
 
 
 	}
@@ -230,7 +235,7 @@ var toasty = Class.create(Sprite,{
 	}
 });
 
-/*var pause = Class.create(Sprite,{
+var pause = Class.create(Sprite,{
 
 	initialize: function() {
 		Sprite.call(this,16,16);
@@ -254,7 +259,7 @@ var toasty = Class.create(Sprite,{
 		});
 	}
 });
-*/
+
 
 EnemyL0 = Class.create(Sprite, {
 
