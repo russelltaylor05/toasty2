@@ -11,6 +11,7 @@ max =0;
 center = 20;
 hand_y = 40;
 var hs = 0;
+GameStopped = false;
 
 window.onload = function() {
 
@@ -240,21 +241,24 @@ var pause = Class.create(Sprite,{
 	initialize: function() {
 		Sprite.call(this,16,16);
 		this.image = game.assets["Pause.png"];
-		this.x = 160;
-		this.y = 40;
-		this.width = 35;
-		this.height = 35;
+		this.x = 140;
+		this.y = 0;
+		this.width = 36;
+		this.height = 36;
 		this.frame = 0;
 	
 	
-		game.rootScene.addEventListener('p', function(e){
-			if(GameStopped == false){
-			Time.timeScale = 0;
-			GameStopped == true;
-			}
-			else{
-			Time.timeScale = 1;
-			GameStopped == false;
+		game.rootScene.addEventListener('touchstart', function(e){
+			if(e.localX <= pause.x + 36 && e.localX >= pause.x - 36 &&
+				e.localY <= pause.y + 36 && e.localY >= pause.y - 36){
+				if(GameStopped == false){
+					Time.timeScale = 0;
+					GameStopped == true;
+				}
+				else{
+					Time.timeScale = 1;
+					GameStopped == false;
+				}
 			}
 		});
 	}
