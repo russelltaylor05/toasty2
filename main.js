@@ -190,14 +190,26 @@ var toasty = Class.create(Sprite,{
 				game.touched = false;
 			}
         });
-		
+
 		
 		this.addEventListener('enterframe', function(){
 			/* Shoots on mouse_click or space bar pressed */
-			if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
-				var s = new shootbreadbullet(this.x, this.y - 15);
-				game.assets['toaster-pop.wav'].play();
+		if((game.touched || game.input.a) && game.frame % playershootingRate == 0){
+			var s = new shootbreadbullet(this.x, this.y - 15);
+			game.assets['toaster-pop.wav'].play();
+		}
+		for(var i in enemies) {
+			if(enemies[i].intersect(this)){
+							over = new Sprite(320, 320);
+					over.image = game.assets['gameover.png'];
+		
+					hs = game.score;
+					game.rootScene.addChild(over);
+               game.end();
 			}
+		}	
+			
+			
 		});
 	},
 	
@@ -486,20 +498,12 @@ var shootrocket =  Class.create(rocket, {
         rocket.call(this, x, y);
         this.addEventListener('enterframe', function () {
 	
-            if(toasty.within(this, 15)) {
+            if(toasty.intersect(this)/*toasty.within(this, 15)*/) {
 					over = new Sprite(320, 320);
 					over.image = game.assets['gameover.png'];
 		
 					hs = game.score;
 					game.rootScene.addChild(over);
-
-
-
-
-
-
-
-
 
 
 
