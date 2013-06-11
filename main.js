@@ -8,6 +8,7 @@ playershootingRate = 30; //smaller is faster
 enemyshootingRate = 50;
 moveSpeed = 7;
 max =0;
+enemymax = 10;
 center = 20;
 hand_y = 40;
 var hs = 0;
@@ -102,7 +103,8 @@ var GameScreen = Class.create(Scene, {
 
 
 		game.rootScene.addEventListener('enterframe',function() {
-			if(max < 10 /*&& rand(100) > 50*/ ) {
+			
+			if(max < enemymax) {
 				max++;
 				if(rand(4) == 0 )
 				{
@@ -110,25 +112,27 @@ var GameScreen = Class.create(Scene, {
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 1 )
+				else if(rand(4) == 1 )
 				{
 				var enemy = new EnemyL1();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 2 )
+				else if(rand(4) == 2 )
 				{
 				var enemy = new EnemyL2();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
-				else if(rand(5) == 3 )
+				else if(rand(4) == 3 )
 				{
 				var enemy = new EnemyL3();
 				enemy.key = game.frame;
 				enemies[game.frame] = enemy;
 				}
 			}
+			
+			
 		});
 
 	game.rootScene.addChild(bg);
@@ -248,6 +252,7 @@ var pause = Class.create(Sprite,{
 	
 	
 		game.rootScene.addEventListener('p', function(e){
+
 			if(GameStopped == false){
 			Time.timeScale = 0;
 			GameStopped == true;
@@ -613,6 +618,11 @@ var shootbreadbullet = Class.create(breadbullet, {
 					enemies[i].remove();
 					game.score+=100;
 					max--;
+					
+					if(game.score>0 && game.score%500 == 0)
+					{
+						enemymax+=2;
+					}
 				}
 			}
 		});
