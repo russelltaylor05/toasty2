@@ -21,11 +21,6 @@ window.onload = function() {
 
 	
 	scoreLabel = new Label('Score: ');
-	highscoreLabel = new Label('High Score: ');
-	highscoreLabel.text = 'High Score: ' + hs;
-	highscoreLabel.x = 220;
-	highscoreLabel.y=5;
-	highscoreLabel.color = "red";
 	scoreLabel.addEventListener('enterframe', function(){
     this.text = "Score:"+ game.score;
 	});
@@ -34,7 +29,7 @@ window.onload = function() {
 	scoreLabel.color = "red";
 	//game.rootScene.addChild(scoreLabel);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png', 'Pause.png');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'intro.png','gameover.png', 'Pause.png');
 	game.score = 0;
 	game.touched = false;
 	game.keybind(32, 'a');
@@ -71,15 +66,18 @@ var StoryScreen = Class.create(Scene, {
 	initialize: function () {
 		Scene.apply(this);
 
+		bg = new Sprite(320,320);
+		bg.image = game.assets['bg.png'];
+		
 		story = new Sprite(320,320);
-		story.image = game.assets['prologue.png'];
+		story.image = game.assets['intro.png'];
 		story.frame = 0;
 
 		story.addEventListener('touchstart', function() {
-			if (story.frame >= 8) {
+			if (story.frame >= 25) {
 				game.rootScene.removeChild(story);
 				var gameScene = new GameScreen();
-   			game.replaceScene(gameScene);
+				game.replaceScene(gameScene);
 				game.popScene(this.scene);
 			}
 			else {
@@ -87,6 +85,7 @@ var StoryScreen = Class.create(Scene, {
 				}
       });
 
+		game.rootScene.addChild(bg);
 		game.rootScene.addChild(story);
 		
 	}
@@ -139,7 +138,6 @@ var GameScreen = Class.create(Scene, {
 	game.rootScene.addChild(bg);
 	game.rootScene.addChild(toasty);
 	game.rootScene.addChild(scoreLabel);
-	game.rootScene.addChild(highscoreLabel);
 	game.rootScene.addChild(pause);
 
 
@@ -201,12 +199,10 @@ var toasty = Class.create(Sprite,{
 		}
 		for(var i in enemies) {
 			if(enemies[i].intersect(this)){
-							over = new Sprite(320, 320);
-					over.image = game.assets['gameover.png'];
-		
-					hs = game.score;
-					game.rootScene.addChild(over);
-               game.end();
+			
+				
+
+				hs = game.score;
 			}
 		}	
 			
@@ -501,18 +497,12 @@ var shootrocket =  Class.create(rocket, {
         this.addEventListener('enterframe', function () {
 	
             if(toasty.intersect(this)/*toasty.within(this, 15)*/) {
-					over = new Sprite(320, 320);
-					over.image = game.assets['gameover.png'];
-		
-					hs = game.score;
-					game.rootScene.addChild(over);
-
-
-
-               game.end();
-            }
-			
-        });
+					ending = new Sprite(320,320);
+					ending.image = game.assets['gameover.png'];
+					game.rootScene.addChild(ending);
+					game.end();
+				}
+		});
     }
 });
    
