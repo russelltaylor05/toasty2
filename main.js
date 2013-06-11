@@ -29,7 +29,7 @@ window.onload = function() {
 	scoreLabel.color = "red";
 	//game.rootScene.addChild(scoreLabel);
     game.fps = 25;
-    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png');
+    game.preload('chara1.png','bg.png','bullet.gif','toasty2.gif','shooter.gif','heart.gif','ui.gif','toastybullets.gif', 'toaster-pop.wav', 'titlebg.png', 'prologue.png','gameover.png', 'Pause.png');
 	game.score = 0;
 	game.touched = false;
 	game.keybind(32, 'a');
@@ -229,6 +229,33 @@ var toasty = Class.create(Sprite,{
 		
 	}
 });
+
+/*var pause = Class.create(Sprite,{
+
+	initialize: function() {
+		Sprite.call(this,16,16);
+		this.image = game.assets["Pause.png"];
+		this.x = 160;
+		this.y = 40;
+		this.width = 35;
+		this.height = 35;
+		this.frame = 0;
+	
+	
+		game.rootScene.addEventListener('p', function(e){
+			if(GameStopped == false){
+			Time.timeScale = 0;
+			GameStopped == true;
+			}
+			else{
+			Time.timeScale = 1;
+			GameStopped == false;
+			}
+		});
+	}
+});
+*/
+
 EnemyL0 = Class.create(Sprite, {
 
 	initialize: function() {
