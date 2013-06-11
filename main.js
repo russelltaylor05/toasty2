@@ -97,7 +97,7 @@ var GameScreen = Class.create(Scene, {
 		bg = new Sprite(320,320);
 		bg.image = game.assets['bg.png'];
 		
-		pause = new pause();
+		/*pause = new pause();*/
 		toasty = new toasty();
 		enemies = new Array();
 
@@ -236,7 +236,7 @@ var toasty = Class.create(Sprite,{
 	}
 });
 
-var pause = Class.create(Sprite,{
+/*var pause = Class.create(Sprite,{
 
 	initialize: function() {
 		Sprite.call(this,16,16);
@@ -256,14 +256,14 @@ var pause = Class.create(Sprite,{
 					GameStopped == true;
 				}
 				else{
-					Time.timeScale = 1;
-					GameStopped == false;
+				Time.timeScale = 1;
+				GameStopped == false;
 				}
 			}
 		});
 	}
 });
-
+*/
 
 EnemyL0 = Class.create(Sprite, {
 
